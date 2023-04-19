@@ -1,8 +1,8 @@
 import type React from 'react';
 import {useEffect, useState, useRef} from 'react';
 import {EditorState} from '@codemirror/state';
-import {EditorView} from '@codemirror/view';
 import {
+  EditorView,
   highlightActiveLine,
   highlightActiveLineGutter,
   keymap,
