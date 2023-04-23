@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import './editor.css';
-import useCodeMirror from '../hooks/use-codemirror';
+import useCodeMirror from '../../hooks/use-codemirror';
+import type {EditorState} from '@codemirror/state';
 
 interface Props {
   initialDoc: string;
@@ -8,10 +9,13 @@ interface Props {
 }
 
 const Editor: React.FC<Props> = ({initialDoc, onChange}) => {
-  //const handleChange = useCallback(state => onChange(state.doc.toString()), [onChange]);
+  const handleChange = useCallback(
+    (state: EditorState) => onChange(state.doc.toString()),
+    [onChange],
+  );
   const [refContainer, editorView] = useCodeMirror<HTMLDivElement>({
     initialDoc,
-    onChange: () => {},
+    onChange: handleChange,
   });
 
   useEffect(() => {
