@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       dry-run:
-        description: 'Compiles the app but not upload artifacts to distribution server'
+        description: "Compiles the app but not upload artifacts to distribution server"
         default: false
         required: false
         type: boolean
@@ -12,19 +12,19 @@ concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: true
 
-
 defaults:
   run:
-    shell: 'bash'
-
+    shell: "bash"
 
 jobs:
   draft_release:
+    permissions:
+      actions: write
 
     strategy:
       fail-fast: true
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16 # Need for npm >=7.7
-          cache: 'npm'
+          cache: "npm"
 
       - run: npm ci
         env:
@@ -50,7 +50,7 @@ jobs:
           max_attempts: 6
           retry_wait_seconds: 15
           retry_on: error
-          shell: 'bash'
+          shell: "bash"
           command: npx --no-install electron-builder --config .electron-builder.config.js --publish ${{ inputs.dry-run && 'never' || 'always' }}
         env:
           # Code Signing params
