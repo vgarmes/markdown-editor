@@ -9,6 +9,6 @@ if (typeof global === 'undefined' || typeof global.process === 'undefined') {
 
 /*
 check if this is needed.
-usage in vite.config.js (rollup options)
+usage in vite.config.js (rollup options) - ignore process and assert
 and import in index.tsx
 */
